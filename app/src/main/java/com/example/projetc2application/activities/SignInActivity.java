@@ -1,6 +1,7 @@
 package com.example.projetc2application.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,7 @@ public class SignInActivity extends AppCompatActivity {
     Activity activity;
     UserLoginAsync userLoginAsync;
     UserLoginAsync.OnFinishListener onFinishListener;
+    String password = "";
 
 
     @Override
@@ -49,10 +51,14 @@ public class SignInActivity extends AppCompatActivity {
                 if (userBean != null) {
                     prefs.setIsLoggedIn(true);
                     prefs.setUser(userBean.getUsername());
+                    prefs.setPassword(password);
                     prefs.setAccessToken(userBean.getAccess_token());
                     prefs.setFullName(userBean.getFirstName() + " " + userBean.getLastName());
                     prefs.setUserId(userBean.get_id());
                 }
+                Intent intent = new Intent(activity, MenuTabActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                activity.startActivity(intent);
             }
 
             @Override
@@ -68,10 +74,11 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String username = etUsername.getText().toString().trim();
-                String password = etPassword.getText().toString().trim();
+                password = etPassword.getText().toString().trim();
 
                 if (!username.isEmpty() && !password.isEmpty()) {
 
+                    loginUser(username, password);
                 }
             }
         });

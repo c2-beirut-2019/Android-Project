@@ -57,7 +57,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@android:color/transparent"
-                    android:hint="Full Name"
+                    android:hint="Username"
                     android:maxLines="1"
                     android:textColor="@color/colorGrey"
                     android:textSize="15dp" />
@@ -67,6 +67,7 @@
             <RelativeLayout
                 android:id="@+id/rlEmail"
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvDesc"
                 android:layout_centerHorizontal="true"
@@ -101,6 +102,7 @@
                 android:layout_marginLeft="45dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="45dp"
+                android:visibility="gone"
                 android:background="@drawable/bg_round_border_green"
                 android:minHeight="40dp">
 
@@ -174,7 +176,30 @@
                     android:textColor="@color/colorGrey"
                     android:textSize="15dp" />
             </RelativeLayout>
+            <TextView
+                android:id="@+id/tvSignUp"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/rlPassword"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/bg_round_grey"
+                android:gravity="center"
+                android:text="Sign Up"
+                android:textColor="@android:color/white"
+                android:textSize="17sp" />
         </LinearLayout>
     </ScrollView>
+    <RelativeLayout
+        android:id="@+id/rlProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 
 </RelativeLayout>

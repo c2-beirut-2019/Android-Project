@@ -16,12 +16,17 @@ import com.example.projetc2application.beans.HttpResponseBean;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class GlobalFunctions {
 
@@ -240,6 +245,64 @@ public class GlobalFunctions {
         return httpResponseBean;
     }
 
+    public static HttpResponseBean Post_StreamX_WWW_Http(HashMap<String, String> params, String auth_token, String urlStr) throws Exception {
+        HttpResponseBean httpResponseBean = new HttpResponseBean();
+        URL url = new URL(urlStr);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setReadTimeout(TIME_OUT);
+        connection.setConnectTimeout(TIME_OUT);
+        connection.setRequestMethod("POST");
+        if (!auth_token.isEmpty()) {
+            connection.setRequestProperty("Authorization", auth_token);
+        }
+
+        connection.setRequestProperty("Connection", "Keep-Alive");
+        connection.setRequestProperty("content-type", "application/x-www-form-urlencoded");
+        connection.setUseCaches(false);
+        connection.setDoOutput(true);
+        connection.setDoInput(true);
+        if (params != null) {
+            OutputStream os = connection.getOutputStream();
+            DataOutputStream wr = new DataOutputStream(os);
+            wr.writeBytes(createQueryStringForParameters(params));
+            wr.close();
+            os.flush();
+            os.close();
+        }
+
+        connection.connect();
+        int status = 0;
+
+        try {
+            status = connection.getResponseCode();
+        } catch (Exception var8) {
+            if ("".equals("dev")) {
+                printException(var8);
+            }
+
+            if (var8.getMessage().equalsIgnoreCase("No authentication challenges found")) {
+                status = 401;
+            }
+        }
+
+        if ("".equals("dev")) {
+            largeLog("HttpStatus", String.valueOf(status));
+        }
+
+        httpResponseBean.setStatus(status);
+
+        if (status >= HttpURLConnection.HTTP_OK && status < 400) {
+            InputStream inputStream = connection.getInputStream();
+            if (inputStream != null) {
+                httpResponseBean.setResponse(PrintStream(inputStream));
+            } else {
+                httpResponseBean.setResponse("");
+            }
+        } else {
+            httpResponseBean.setResponse(PrintStream(connection.getErrorStream()));
+        }
+        return httpResponseBean;
+    }
     public static void largeLog(String tag, String content) {
         if (content.length() > 4000) {
             final int chunkSize = 2048;
@@ -259,5 +322,22 @@ public class GlobalFunctions {
         } else {
             Log.d(tag, content);
         }
+    }
+    public static String createQueryStringForParameters(Map<String, String> parameters) throws UnsupportedEncodingException {
+        StringBuilder parametersAsQueryString = new StringBuilder();
+        if (parameters != null) {
+            boolean firstParameter = true;
+
+            for(Iterator var3 = parameters.entrySet().iterator(); var3.hasNext(); firstParameter = false) {
+                Map.Entry<String, String> stringStringEntry = (Map.Entry)var3.next();
+                if (!firstParameter) {
+                    parametersAsQueryString.append('&');
+                }
+
+                parametersAsQueryString.append((String)stringStringEntry.getKey()).append('=').append(URLEncoder.encode((String)stringStringEntry.getValue(), "UTF-8"));
+            }
+        }
+
+        return parametersAsQueryString.toString();
     }
 }

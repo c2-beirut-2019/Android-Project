@@ -17,6 +17,7 @@ public class GlobalVars {
     //apis --END--
 
     //BUNDLE --START--
+    public static String CODE_BUNDLE = "CODE";
 
     //BUNDLE --END--
 

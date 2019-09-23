@@ -11,7 +11,9 @@ import android.widget.Toast;
 import com.example.projetc2application.R;
 import com.example.projetc2application.beans.HttpResponseBean;
 import com.example.projetc2application.beans.NewsBean;
+import com.example.projetc2application.beans.ProductsBean;
 import com.example.projetc2application.handlers.NewsHandler;
+import com.example.projetc2application.handlers.ProductsHandler;
 import com.example.projetc2application.utils.GlobalFunctions;
 import com.example.projetc2application.utils.GlobalVars;
 
@@ -26,7 +28,7 @@ public class GetProductsAsync extends AsyncTask<Void, Void, String> {
 
     Activity activity;
     OnFinishListener mListener;
-    ArrayList<NewsBean> newsBeans;
+    ArrayList<ProductsBean> newsBeans;
     LayoutInflater mLayoutInflater;
     HttpResponseBean bean;
     RelativeLayout rlProgressBar;
@@ -81,7 +83,7 @@ public class GetProductsAsync extends AsyncTask<Void, Void, String> {
                     resp = bean.getResponse();
 
                     if (!isCancelled()) {
-                        newsBeans = NewsHandler.parseNews(resp);
+                        newsBeans = ProductsHandler.parseNews(resp);
                     }
                 }
 

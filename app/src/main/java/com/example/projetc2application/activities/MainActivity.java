@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.projetc2application.R;
+import com.example.projetc2application.utils.Prefs;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -36,6 +37,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvSignIn.setOnClickListener(this);
         tvSignUp.setOnClickListener(this);
         tvSkipAll.setOnClickListener(this);
+
+        if(Prefs.getInstance(activity).getIsLoggedIn()){
+            Intent intent = new Intent(activity, MenuTabActivity.class);
+            activity.startActivity(intent);
+            activity.finish();
+        }
     }
 
     @Override
@@ -50,8 +57,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 activity.startActivity(intent2);
                 break;
             case R.id.tvSkip:
-                Intent intent = new Intent(activity,MainMenuActivity.class);
+                Intent intent = new Intent(activity, MenuTabActivity.class);
                 activity.startActivity(intent);
+                activity.finish();
                 break;
         }
     }

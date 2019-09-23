@@ -37,12 +37,14 @@ public class SetUsernamePasswordAsync extends AsyncTask<Void, Void, String> {
     boolean isSuccess = false;
     String username = "";
     String password = "";
+    String code = "";
 
-    public SetUsernamePasswordAsync(Activity activity, String username,String password, RelativeLayout rlProgressBar, boolean isRefresh, OnFinishListener listener) {
+    public SetUsernamePasswordAsync(Activity activity,String code,String username,String password, RelativeLayout rlProgressBar, boolean isRefresh, OnFinishListener listener) {
         this.activity = activity;
         this.mListener = listener;
         this.isRefresh = isRefresh;
         this.rlProgressBar = rlProgressBar;
+        this.code = code;
         this.username = username;
         this.password = password;
         mLayoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -78,6 +80,9 @@ public class SetUsernamePasswordAsync extends AsyncTask<Void, Void, String> {
             try {
                 HashMap<String, String> headers = new HashMap<>();
                 JSONObject jsonObject = new JSONObject();
+                System.out.println("ValidateCodeAsync>>>>>>>>>>>>>>>>code>>>>>>>" + code);
+
+                jsonObject.put("accessCode",code);
                 jsonObject.put("username",username);
                 jsonObject.put("password",password);
                 if (GlobalVars.IS_USER)

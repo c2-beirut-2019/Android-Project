@@ -83,10 +83,11 @@ public class UserLoginAsync extends AsyncTask<Void, Void, String> {
             try {
                 HashMap<String, String> headers = new HashMap<>();
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("username",username);
-                jsonObject.put("password",password);
+                headers.put("grant_type","password");
+                headers.put("username",username);
+                headers.put("password",password);
                 if (GlobalVars.IS_USER)
-                    bean = GlobalFunctions.Post_StreamHttp(jsonObject, headers, GlobalVars.BASE_URL + GlobalVars.LOGIN_URL, "POST");
+                    bean = GlobalFunctions.Post_StreamX_WWW_Http( headers, Prefs.getInstance(activity).getAccessToken(),GlobalVars.BASE_URL + GlobalVars.LOGIN_URL);
 
                 System.out.println("UserLoginAsync>>>>>>>>>>>>>>>>>>>>>>>" + bean.getResponse());
 

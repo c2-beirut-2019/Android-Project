@@ -3,4 +3,7 @@
     <string name="message_error_connection">Please check your internet connection and try again later</string>
     <string name="your_session_expired">Your current session has expired, please login again.</string>
     <string name="message_error_occured">An error has occurred, try again later</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

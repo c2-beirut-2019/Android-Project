@@ -27,7 +27,12 @@ public class Prefs {
     static final String PREF_USER_ID = "user_id";
 
     public static void clearPrefVar() {
-        mPrefs = null;
+        mPrefs.setPassword("");
+        mPrefs.setIsLoggedIn(false);
+        mPrefs.setUser("");
+        mPrefs.setAccessToken("");
+        mPrefs.setFullName("");
+        mPrefs.setUserId("");
     }
 
     public static Prefs getInstance(Activity activity) {
