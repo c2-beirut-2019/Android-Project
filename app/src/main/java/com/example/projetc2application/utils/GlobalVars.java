@@ -18,6 +18,7 @@ public class GlobalVars {
 
     //BUNDLE --START--
     public static String CODE_BUNDLE = "CODE";
+    public static String NEWS_BEAN_BUNDLE = "NEWS_BEAN";
 
     //BUNDLE --END--
 

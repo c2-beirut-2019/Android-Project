@@ -12,13 +12,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.projetc2application.R;
+import com.example.projetc2application.activities.NewsDetailsActivity;
 import com.example.projetc2application.beans.NewsBean;
+import com.example.projetc2application.utils.GlobalVars;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class NewsAdapter extends RecyclerView.Adapter {
 
@@ -93,7 +94,12 @@ public class NewsAdapter extends RecyclerView.Adapter {
             ((NewsViewHolder) viewHolder).rlParent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    int pos = (Integer) v.getTag();
+                    NewsBean newsBean = newsBeans.get(pos);
 
+                    Intent intent = new Intent(activity, NewsDetailsActivity.class);
+                    intent.putExtra(GlobalVars.NEWS_BEAN_BUNDLE,newsBean);
+                    activity.startActivity(intent);
                 }
             });
 

@@ -1,5 +1,6 @@
 package com.example.projetc2application.activities;
 
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,9 +14,12 @@ import com.example.projetc2application.fragments.NewsFragment;
 import com.example.projetc2application.fragments.PetsFragment;
 import com.example.projetc2application.fragments.ProductsFragment;
 import com.example.projetc2application.fragments.ProfileFragment;
+import com.example.projetc2application.utils.GlobalFunctions;
+import com.example.projetc2application.utils.Prefs;
 
 public class MenuTabActivity extends AppCompatActivity implements View.OnClickListener {
 
+    Activity activity;
     Fragment fragment;
     private FragmentManager fragmentManager;
     RelativeLayout rlProducts,rlNews,rlDoctors,rlAppointments,rlPets,rlProfile;
@@ -30,6 +34,7 @@ public class MenuTabActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void setupViews(){
+        activity = this;
         rlProducts = findViewById(R.id.rlProducts);
         rlNews = findViewById(R.id.rlNews);
         rlDoctors = findViewById(R.id.rlDoctors);
@@ -65,9 +70,27 @@ public class MenuTabActivity extends AppCompatActivity implements View.OnClickLi
                 fragment = new PetsFragment();
                 replaceFragments(fragment);
                 break;
+            case R.id.rlDoctors:
+                if(Prefs.getInstance(activity).getIsLoggedIn()) {
+
+                }else{
+                    GlobalFunctions.showToast(activity,"Please login to access doctors section.");
+                }
+                break;
+            case R.id.rlAppointments:
+                if(Prefs.getInstance(activity).getIsLoggedIn()) {
+
+                }else{
+                    GlobalFunctions.showToast(activity,"Please login to access appointment section.");
+                }
+                break;
             case R.id.rlProfile:
-                fragment = new ProfileFragment();
-                replaceFragments(fragment);
+                if(Prefs.getInstance(activity).getIsLoggedIn()) {
+                    fragment = new ProfileFragment();
+                    replaceFragments(fragment);
+                }else{
+                    GlobalFunctions.showToast(activity,"Please login to access profile section.");
+                }
                 break;
         }
     }
