@@ -81,6 +81,8 @@ public class ValidateCodeAsync extends AsyncTask<Void, Void, String> {
                 jsonObject.put("accessCode",code);
                 if (GlobalVars.IS_USER)
                     bean = GlobalFunctions.Post_StreamHttp(jsonObject, headers, GlobalVars.BASE_URL + GlobalVars.VERIFY_CODE_URL, "POST");
+                  else
+                    bean = GlobalFunctions.Post_StreamHttp(jsonObject, headers, GlobalVars.BASE_URL + GlobalVars.VERIFY_CODE__DOCTOR_URL, "POST");
 
                 System.out.println("ValidateCodeAsync>>>>>>>>>>>>>>>>>>>>>>>" + bean.getResponse());
 

@@ -12,11 +12,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:paddingBottom="20dp"
         >
-
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="Please choose your interface"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle"
+            android:layout_marginTop="20dp"
             card_view:cardCornerRadius="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -91,6 +104,7 @@
             android:background="@drawable/bg_round_green"
             android:gravity="center"
             android:elevation="8dp"
+            android:layout_marginBottom="30dp"
             android:layout_marginTop="-30dp"
             android:text="Client"
             android:textColor="@android:color/white"

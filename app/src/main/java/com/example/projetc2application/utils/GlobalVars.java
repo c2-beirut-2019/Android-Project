@@ -6,8 +6,11 @@ public class GlobalVars {
     public static String BASE_URL = "http://34.247.71.103:4444";
 
     public static String LOGIN_URL = "/client/authenticate";
+    public static String LOGIN_DOCTOR_URL = "/doctor/authenticate";
     public static String VERIFY_CODE_URL = "/client/code";
+    public static String VERIFY_CODE__DOCTOR_URL = "/doctor/code";
     public static String SET_USERNAME_PASS_URL = "/client/username";
+    public static String SET_USERNAME_PASS_DOCTOR_URL = "/doctor/username";
     public static String GET_NEWS_URL = "/news?page=1&limit=10";
     public static String GET_PRODUCTS_URL = "/product?page=1&limit=10&sortBy=price&sortOrder=desc";
     public static String GET_USER_APPOINTMENT_URL = "/appointment/userAppointment?";
@@ -18,6 +21,7 @@ public class GlobalVars {
 
     //BUNDLE --START--
     public static String CODE_BUNDLE = "CODE";
+    public static String IS_DOCTOR_BUNDLE = "IS_DOCTOR_BUNDLE";
     public static String NEWS_BEAN_BUNDLE = "NEWS_BEAN";
     public static String PRODUCTS_BEAN_BUNDLE = "PRODUCTS_BEAN";
     public static String PETS_BEAN_BUNDLE = "PETS_BEAN";

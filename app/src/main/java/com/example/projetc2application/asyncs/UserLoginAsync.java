@@ -88,6 +88,8 @@ public class UserLoginAsync extends AsyncTask<Void, Void, String> {
                 headers.put("password",password);
                 if (GlobalVars.IS_USER)
                     bean = GlobalFunctions.Post_StreamX_WWW_Http( headers, Prefs.getInstance(activity).getAccessToken(),GlobalVars.BASE_URL + GlobalVars.LOGIN_URL);
+                else
+                    bean = GlobalFunctions.Post_StreamX_WWW_Http( headers, Prefs.getInstance(activity).getAccessToken(),GlobalVars.BASE_URL + GlobalVars.LOGIN_DOCTOR_URL);
 
                 System.out.println("UserLoginAsync>>>>>>>>>>>>>>>>>>>>>>>" + bean.getResponse());
 

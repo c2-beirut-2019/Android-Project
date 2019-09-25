@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.projetc2application.R;
+import com.example.projetc2application.utils.GlobalVars;
 import com.example.projetc2application.utils.Prefs;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -49,14 +50,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tvSignIn:
-                Intent intent1 = new Intent(activity,SignInActivity.class);
+                Intent intent1 = new Intent(activity,MainMenuActivity.class);
+                intent1.putExtra(GlobalVars.CODE_BUNDLE,true);
                 activity.startActivity(intent1);
                 break;
             case R.id.tvSignUp:
-                Intent intent2 = new Intent(activity,VerifyCodeActivity.class);
+                Intent intent2 = new Intent(activity,MainMenuActivity.class);
+                intent2.putExtra(GlobalVars.CODE_BUNDLE,false);
                 activity.startActivity(intent2);
                 break;
             case R.id.tvSkip:
+                GlobalVars.IS_USER = true;
                 Intent intent = new Intent(activity, MenuTabActivity.class);
                 activity.startActivity(intent);
                 activity.finish();

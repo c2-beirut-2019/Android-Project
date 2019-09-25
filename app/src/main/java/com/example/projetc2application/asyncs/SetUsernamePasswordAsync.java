@@ -87,6 +87,8 @@ public class SetUsernamePasswordAsync extends AsyncTask<Void, Void, String> {
                 jsonObject.put("password",password);
                 if (GlobalVars.IS_USER)
                     bean = GlobalFunctions.Post_StreamHttp(jsonObject, headers, GlobalVars.BASE_URL + GlobalVars.SET_USERNAME_PASS_URL, "POST");
+                   else
+                    bean = GlobalFunctions.Post_StreamHttp(jsonObject, headers, GlobalVars.BASE_URL + GlobalVars.SET_USERNAME_PASS_DOCTOR_URL, "POST");
 
                 System.out.println("ValidateCodeAsync>>>>>>>>>>>>>>>>>>>>>>>" + bean.getResponse());
 
