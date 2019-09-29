@@ -54,7 +54,7 @@ public class AppointmentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        layout = inflater.inflate(R.layout.fragment_products, container, false);
+        layout = inflater.inflate(R.layout.fragment_appointments, container, false);
 
         setupView();
 
