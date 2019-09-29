@@ -12,7 +12,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.projetc2application.R;
+import com.example.projetc2application.activities.DoctorsListActivity;
 import com.example.projetc2application.activities.PetsDetailsActivity;
+import com.example.projetc2application.beans.AppointmentBean;
 import com.example.projetc2application.beans.DoctorsBean;
 import com.example.projetc2application.beans.PetsBean;
 import com.example.projetc2application.utils.GlobalVars;
@@ -95,7 +97,14 @@ public class DoctorsAdapter extends RecyclerView.Adapter {
             ((NewsViewHolder) viewHolder).rlParent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                if(activity instanceof DoctorsListActivity){
+                    int pos = (Integer) v.getTag();
+                    DoctorsBean appointmentBean = newsBeans.get(pos);
+                    Intent intent = new Intent();
+                    intent.putExtra(GlobalVars.CODE_BUNDLE,appointmentBean);
+                    activity.setResult(Activity.RESULT_OK,intent);
+                    activity.finish();
+                }
                 }
             });
 
