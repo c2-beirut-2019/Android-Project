@@ -11,6 +11,7 @@ public class GlobalVars {
     public static String VERIFY_CODE__DOCTOR_URL = "/doctor/code";
     public static String SET_USERNAME_PASS_URL = "/client/username";
     public static String SET_USERNAME_PASS_DOCTOR_URL = "/doctor/username";
+    public static String GET_DOCTORS_URL = "/doctor/list";
     public static String GET_NEWS_URL = "/news?page=1&limit=10";
     public static String GET_PRODUCTS_URL = "/product?page=1&limit=10&sortBy=price&sortOrder=desc";
     public static String GET_USER_APPOINTMENT_URL = "/appointment/userAppointment?";
