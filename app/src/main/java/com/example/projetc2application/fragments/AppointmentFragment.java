@@ -1,6 +1,7 @@
 package com.example.projetc2application.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.example.projetc2application.R;
+import com.example.projetc2application.activities.AddAppointmentActivity;
 import com.example.projetc2application.adapters.DoctorsAdapter;
 import com.example.projetc2application.asyncs.GetAppointmentsAsync;
 import com.example.projetc2application.asyncs.GetDoctorsListAsync;
@@ -86,6 +88,14 @@ public class AppointmentFragment extends Fragment {
         }else{
             ivAppointment.setVisibility(View.GONE);
         }
+
+        ivAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, AddAppointmentActivity.class);
+                activity.startActivityForResult(intent,100);
+            }
+        });
     }
 
     public void getProducts(int page , boolean isRefresh){
@@ -93,4 +103,8 @@ public class AppointmentFragment extends Fragment {
         getDoctorsListAsync.execute();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

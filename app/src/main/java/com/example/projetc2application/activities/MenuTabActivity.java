@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.example.projetc2application.R;
+import com.example.projetc2application.fragments.AppointmentFragment;
 import com.example.projetc2application.fragments.DoctorsFragment;
 import com.example.projetc2application.fragments.NewsFragment;
 import com.example.projetc2application.fragments.PetsFragment;
@@ -81,7 +82,8 @@ public class MenuTabActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.rlAppointments:
                 if(Prefs.getInstance(activity).getIsLoggedIn()) {
-
+                    fragment = new AppointmentFragment();
+                    replaceFragments(fragment);
                 }else{
                     GlobalFunctions.showToast(activity,"Please login to access appointment section.");
                 }
