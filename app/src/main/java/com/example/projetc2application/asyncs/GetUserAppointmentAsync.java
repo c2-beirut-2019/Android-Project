@@ -76,7 +76,7 @@ public class GetUserAppointmentAsync extends AsyncTask<Void, Void, String> {
         if (!didFail) {
             try {
                 HashMap<String, String> headers = new HashMap<>();
-                headers.put("Authorization", GlobalFunctions.decryptData(Prefs.getInstance(activity).getAccessToken()));
+                headers.put("Authorization", Prefs.getInstance(activity).getAccessToken());
                 if (GlobalVars.IS_USER)
                     bean = GlobalFunctions.Post_StreamHttp(new JSONObject(), headers, GlobalVars.BASE_URL + GlobalVars.GET_USER_APPOINTMENT_URL, "GET");
                 else
