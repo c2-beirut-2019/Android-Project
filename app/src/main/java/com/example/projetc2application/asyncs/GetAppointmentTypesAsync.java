@@ -9,8 +9,10 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.projetc2application.R;
+import com.example.projetc2application.beans.AppointmentBean;
 import com.example.projetc2application.beans.HttpResponseBean;
 import com.example.projetc2application.beans.ProductsBean;
+import com.example.projetc2application.handlers.AppointmentHandler;
 import com.example.projetc2application.handlers.ProductsHandler;
 import com.example.projetc2application.utils.GlobalFunctions;
 import com.example.projetc2application.utils.GlobalVars;
@@ -26,7 +28,7 @@ public class GetAppointmentTypesAsync extends AsyncTask<Void, Void, String> {
 
     Activity activity;
     OnFinishListener mListener;
-    ArrayList<ProductsBean> newsBeans;
+    ArrayList<AppointmentBean> newsBeans;
     LayoutInflater mLayoutInflater;
     HttpResponseBean bean;
     RelativeLayout rlProgressBar;
@@ -81,7 +83,7 @@ public class GetAppointmentTypesAsync extends AsyncTask<Void, Void, String> {
                     resp = bean.getResponse();
 
                     if (!isCancelled()) {
-                        newsBeans = ProductsHandler.parseNews(resp);
+                        newsBeans = AppointmentHandler.parseDoctors(resp);
                     }
                 }
 

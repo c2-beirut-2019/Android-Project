@@ -76,7 +76,8 @@ public class GetDoctorsListAsync extends AsyncTask<Void, Void, String> {
         if (!didFail) {
             try {
                 HashMap<String, String> headers = new HashMap<>();
-                headers.put("Authorization", GlobalFunctions.decryptData(Prefs.getInstance(activity).getAccessToken()));
+                headers.put("Authorization",Prefs.getInstance(activity).getAccessToken());
+                System.out.println("GetDoctorsListAsync>>>>>>Authorization>>>>>>>>>>>>>>>>>"+Prefs.getInstance(activity).getAccessToken());
 
                 bean = GlobalFunctions.Get_StreamHttp(GlobalVars.BASE_URL + GlobalVars.GET_DOCTORS_URL, headers, true);
 
