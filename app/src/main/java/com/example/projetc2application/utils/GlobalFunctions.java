@@ -341,6 +341,7 @@ public class GlobalFunctions {
         return parametersAsQueryString.toString();
     }
 
+
     public static void handlingOnErrorResponse(Activity activity,String error){
         if(error.equals("401")){
             //session expiered
