@@ -1,117 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:orientation="vertical"
     tools:context=".activities.AddAppointmentActivity">
 
-    <TextView
-        android:id="@+id/tvDesc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:gravity="center"
-        android:text="Please fill your information to set your appointment"
-        android:textColor="@color/colorGrey"
-        android:textSize="17sp" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:text="Your Pet :"
-        android:textColor="@android:color/black"
-        android:padding="20dp"
-        android:textSize="17sp"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:text="Select Pet"
-        android:layout_marginLeft="25dp"
-        android:padding="10dp"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="17sp"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:text="Appointment Type :"
-        android:textColor="@android:color/black"
-        android:padding="20dp"
-        android:textSize="17sp"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:text="Select Your Appointment Type"
-        android:layout_marginLeft="25dp"
-        android:padding="10dp"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="17sp"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:text="Your Doctor :"
-        android:textColor="@android:color/black"
-        android:padding="20dp"
-        android:textSize="17sp"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:text="Select Doctor"
-        android:layout_marginLeft="25dp"
-        android:padding="10dp"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="17sp"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:text="Appointment Date and Time"
-        android:textColor="@android:color/black"
-        android:padding="20dp"
-        android:textSize="17sp"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:text="Select Date and Time"
-        android:layout_marginLeft="25dp"
-        android:padding="10dp"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="17sp"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:text="Please fill your information to set your appointment"
+                android:textColor="@color/colorGrey"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:padding="20dp"
+                android:text="Your Pet :"
+                android:textColor="@android:color/black"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvPet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:padding="10dp"
+                android:text="Select Pet"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:padding="20dp"
+                android:text="Appointment Type :"
+                android:textColor="@android:color/black"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvAppType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:padding="10dp"
+                android:text="Select Your Appointment Type"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:padding="20dp"
+                android:text="Your Doctor :"
+                android:textColor="@android:color/black"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvDoctor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:padding="10dp"
+                android:text="Select Doctor"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:padding="20dp"
+                android:text="Appointment Date "
+                android:textColor="@android:color/black"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvDateTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:maxLines="2"
+                android:padding="10dp"
+                android:text="Select Date and Time"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:padding="20dp"
+                android:text="Appointment Time "
+                android:textColor="@android:color/black"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:maxLines="2"
+                android:padding="10dp"
+                android:text="Select Time"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="17sp" />
 
 
-    <TextView
-        android:id="@+id/tvSignIn"
-        android:layout_width="160dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/bg_round_green"
-        android:gravity="center"
-        android:text="Add"
-        android:textColor="@android:color/white"
-        android:textSize="17sp" />
-</LinearLayout>
+            <TextView
+                android:id="@+id/tvAdd"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/bg_round_green"
+                android:gravity="center"
+                android:text="Add"
+                android:textColor="@android:color/white"
+                android:textSize="17sp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/rlProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+</RelativeLayout>
