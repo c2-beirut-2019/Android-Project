@@ -12,7 +12,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.projetc2application.R;
+import com.example.projetc2application.activities.PetsAdoptedActivity;
 import com.example.projetc2application.activities.PetsDetailsActivity;
+import com.example.projetc2application.beans.AppointmentBean;
 import com.example.projetc2application.beans.NewsBean;
 import com.example.projetc2application.beans.PetsBean;
 import com.example.projetc2application.utils.GlobalVars;
@@ -98,9 +100,18 @@ public class PetsAdapter extends RecyclerView.Adapter {
                     int pos = (Integer) v.getTag();
                     PetsBean newsBean = newsBeans.get(pos);
 
-                    Intent intent = new Intent(activity, PetsDetailsActivity.class);
-                    intent.putExtra(GlobalVars.PETS_BEAN_BUNDLE,newsBean);
-                    activity.startActivity(intent);
+                    if(! (activity instanceof PetsAdoptedActivity)) {
+                        Intent intent = new Intent(activity, PetsDetailsActivity.class);
+                        intent.putExtra(GlobalVars.PETS_BEAN_BUNDLE, newsBean);
+                        activity.startActivity(intent);
+                    }
+                    else {
+                        Intent intent = new Intent();
+                        intent.putExtra(GlobalVars.CODE_BUNDLE,newsBean);
+                        activity.setResult(Activity.RESULT_OK,intent);
+                        activity.finish();
+
+                    }
                 }
             });
 
