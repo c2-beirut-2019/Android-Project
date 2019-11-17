@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class UserBean implements Serializable {
 
+
+    private String image = "";
     private String firstName = "";
     private String lastName = "";
     private String username = "";
@@ -76,5 +78,13 @@ public class UserBean implements Serializable {
 
     public void setRefresh_token_header(String refresh_token_header) {
         this.refresh_token_header = refresh_token_header;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

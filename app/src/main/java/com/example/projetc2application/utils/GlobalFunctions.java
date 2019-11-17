@@ -2,21 +2,32 @@ package com.example.projetc2application.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.CursorLoader;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.projetc2application.BuildConfig;
+import com.example.projetc2application.activities.MainActivity;
+import com.example.projetc2application.activities.ViewImageActivity;
 import com.example.projetc2application.beans.HttpResponseBean;
 
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -24,6 +35,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -342,12 +355,116 @@ public class GlobalFunctions {
     }
 
 
-    public static void handlingOnErrorResponse(Activity activity,String error){
+    public static void handlingOnErrorResponse(Activity activity,String error,String message){
         if(error.equals("401")){
             //session expiered
+            GlobalFunctions.showToast(activity,"Your session is expiered, please login to continue");
+            Intent intent =  new Intent(activity, MainActivity.class);
+            activity.startActivity(intent);
+            activity.finish();
         }else{
-            GlobalFunctions.showToast(activity,error);
+            GlobalFunctions.showToast(activity,message);
         }
 
+    }
+
+    public static Uri takePhoto(Activity activity, int result, String name) {
+        {
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            Uri picUri;
+            File file;
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                file = getOutputMediaFile(1, name);
+                picUri = Uri.fromFile(file); // create
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, picUri);
+            } else {
+                file = new File(getOutputMediaFile(1, name).getPath());
+                picUri = FileProvider.getUriForFile(activity.getApplicationContext(), activity.getApplicationContext().getPackageName() + ".provider", file);
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, picUri);
+            }
+            cameraIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            activity.startActivityForResult(cameraIntent, result);
+            return Uri.fromFile(file);
+        }
+    }
+
+    public static Uri takePhoto(Activity activity, int result, String name, String fileProvider) {
+        {
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            Uri picUri;
+            File file;
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                file = getOutputMediaFile(1, name);
+                picUri = Uri.fromFile(file); // create
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, picUri);
+            } else {
+                file = new File(getOutputMediaFile(1, name).getPath());
+                picUri = FileProvider.getUriForFile(activity.getApplicationContext(), fileProvider, file);
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, picUri);
+            }
+            cameraIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            activity.startActivityForResult(cameraIntent, result);
+            return Uri.fromFile(file);
+        }
+    }
+    public static File getOutputMediaFile(int type, String name) {
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), name);
+
+        /**Create the storage directory if it does not exist*/
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return null;
+            }
+        }
+
+        /**Create a media file name*/
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File mediaFile;
+        if (type == 1) {
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator +
+                    "IMG_" + timeStamp + ".png");
+        } else {
+            return null;
+        }
+
+        return mediaFile;
+    }
+    public static void showDialog(final Activity activity, String message) {
+        try {
+            AlertDialogFragment diag = new AlertDialogFragment();
+            diag.setMessage(message);
+            diag.setCancelable(false);
+            diag.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            if (!activity.isFinishing())
+                diag.show(activity.getFragmentManager(), null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    public static String getFileName(Activity activity, Uri contentUri) {
+        String[] proj = {MediaStore.Images.Media.DATA};
+        CursorLoader loader = new CursorLoader(activity, contentUri, proj, null, null, null);
+        Cursor cursor = loader.loadInBackground();
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String result = cursor.getString(column_index);
+        cursor.close();
+        return result;
+    }
+    public static void goToViewImage(Activity activity, String imageUrl) {
+        try {
+            Intent intent = new Intent(activity, ViewImageActivity.class);
+            intent.putExtra("imageUrl", imageUrl);
+            activity.startActivity(intent);
+        } catch (Exception e) {
+        }
     }
 }

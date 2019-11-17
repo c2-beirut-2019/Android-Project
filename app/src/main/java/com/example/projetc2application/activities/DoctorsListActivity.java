@@ -10,6 +10,7 @@ import com.example.projetc2application.R;
 import com.example.projetc2application.adapters.DoctorsAdapter;
 import com.example.projetc2application.asyncs.GetDoctorsListAsync;
 import com.example.projetc2application.beans.DoctorsBean;
+import com.example.projetc2application.utils.GlobalFunctions;
 
 import java.util.ArrayList;
 
@@ -45,7 +46,8 @@ public class DoctorsListActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onError(Object var1) {
+            public void onError(Object var1,Object var2) {
+                GlobalFunctions.handlingOnErrorResponse(activity,(String)var1,(String)var2);
 
             }
         };

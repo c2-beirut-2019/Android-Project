@@ -13,10 +13,13 @@ import android.widget.RelativeLayout;
 
 import com.example.projetc2application.R;
 import com.example.projetc2application.activities.AddAppointmentActivity;
+import com.example.projetc2application.adapters.AppointmentUserAdapter;
 import com.example.projetc2application.adapters.DoctorsAdapter;
 import com.example.projetc2application.asyncs.GetAppointmentsAsync;
 import com.example.projetc2application.asyncs.GetDoctorsListAsync;
+import com.example.projetc2application.beans.AppointmentUserBean;
 import com.example.projetc2application.beans.DoctorsBean;
+import com.example.projetc2application.utils.GlobalFunctions;
 import com.example.projetc2application.utils.GlobalVars;
 
 import java.util.ArrayList;
@@ -27,7 +30,7 @@ public class AppointmentFragment extends Fragment {
     RecyclerView rvNews;
     RelativeLayout rlProgressBar;
     Activity activity;
-    DoctorsAdapter newsAdapter;
+    AppointmentUserAdapter newsAdapter;
     GetAppointmentsAsync getDoctorsListAsync;
     GetAppointmentsAsync.OnFinishListener onFinishListener;
     int page = 1;
@@ -70,13 +73,14 @@ public class AppointmentFragment extends Fragment {
         onFinishListener = new GetAppointmentsAsync.OnFinishListener() {
             @Override
             public void onSuccess(Object var1) {
-                ArrayList<DoctorsBean> newsBeans = (ArrayList<DoctorsBean>)var1;
-                newsAdapter = new DoctorsAdapter(activity,newsBeans);
+                ArrayList<AppointmentUserBean> newsBeans = (ArrayList<AppointmentUserBean>)var1;
+                newsAdapter = new AppointmentUserAdapter(activity,newsBeans);
                 rvNews.setAdapter(newsAdapter);
             }
 
             @Override
-            public void onError(Object var1) {
+            public void onError(Object var1,Object var2) {
+                GlobalFunctions.handlingOnErrorResponse(activity,(String)var1,(String) var2);
 
             }
         };

@@ -129,8 +129,8 @@ public class AddAppointmentActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onError(Object var1) {
-
+                        public void onError(Object var1,Object var2) {
+                            GlobalFunctions.handlingOnErrorResponse(activity,(String)var1,(String)var2);
                         }
                     }).execute();
                 } else {

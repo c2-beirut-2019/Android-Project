@@ -16,6 +16,7 @@ import com.example.projetc2application.asyncs.GetNewsAsync;
 import com.example.projetc2application.asyncs.GetPetsToAdoptAsync;
 import com.example.projetc2application.beans.NewsBean;
 import com.example.projetc2application.beans.PetsBean;
+import com.example.projetc2application.utils.GlobalFunctions;
 
 import java.util.ArrayList;
 
@@ -71,8 +72,8 @@ public class PetsFragment extends Fragment {
             }
 
             @Override
-            public void onError(Object var1) {
-
+            public void onError(Object var1,Object var2) {
+                GlobalFunctions.handlingOnErrorResponse(activity,(String)var1,(String) var2);
             }
         };
 

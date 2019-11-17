@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.projetc2application.R;
 import com.example.projetc2application.activities.MainActivity;
 import com.example.projetc2application.activities.MenuTabActivity;
+import com.example.projetc2application.activities.ProfileActivity;
 import com.example.projetc2application.utils.Prefs;
 
 public class ProfileFragment extends Fragment {
@@ -62,6 +63,14 @@ public class ProfileFragment extends Fragment {
                 Prefs.getInstance(activity).clearPrefVar();
                 Intent intent = new Intent(activity, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                activity.startActivity(intent);
+            }
+        });
+
+        tvEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, ProfileActivity.class);
                 activity.startActivity(intent);
             }
         });

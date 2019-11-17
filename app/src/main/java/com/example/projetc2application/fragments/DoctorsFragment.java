@@ -18,6 +18,7 @@ import com.example.projetc2application.asyncs.GetDoctorsListAsync;
 import com.example.projetc2application.asyncs.GetProductsAsync;
 import com.example.projetc2application.beans.DoctorsBean;
 import com.example.projetc2application.beans.ProductsBean;
+import com.example.projetc2application.utils.GlobalFunctions;
 
 import java.util.ArrayList;
 
@@ -74,8 +75,8 @@ public class DoctorsFragment extends Fragment {
             }
 
             @Override
-            public void onError(Object var1) {
-
+            public void onError(Object var1,Object var2) {
+                GlobalFunctions.handlingOnErrorResponse(activity,(String)var1,(String) var2);
             }
         };
 

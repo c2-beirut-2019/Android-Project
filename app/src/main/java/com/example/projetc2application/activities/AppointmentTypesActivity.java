@@ -12,6 +12,7 @@ import com.example.projetc2application.adapters.DoctorsAdapter;
 import com.example.projetc2application.asyncs.GetAppointmentTypesAsync;
 import com.example.projetc2application.beans.AppointmentBean;
 import com.example.projetc2application.beans.DoctorsBean;
+import com.example.projetc2application.utils.GlobalFunctions;
 
 import java.util.ArrayList;
 
@@ -41,7 +42,8 @@ public class AppointmentTypesActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onError(Object var1) {
+            public void onError(Object var1,Object var2) {
+                GlobalFunctions.handlingOnErrorResponse(activity,(String)var1,(String)var2);
 
             }
         };

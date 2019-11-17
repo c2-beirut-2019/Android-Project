@@ -11,6 +11,7 @@ import com.example.projetc2application.adapters.PetsAdapter;
 import com.example.projetc2application.asyncs.GetPetsToAdoptAsync;
 import com.example.projetc2application.asyncs.GetPetsUserAsync;
 import com.example.projetc2application.beans.PetsBean;
+import com.example.projetc2application.utils.GlobalFunctions;
 
 import java.util.ArrayList;
 
@@ -20,10 +21,10 @@ public class PetsAdoptedActivity extends AppCompatActivity {
     RelativeLayout rlProgressBar;
     Activity activity;
     PetsAdapter newsAdapter;
-    GetPetsToAdoptAsync getNewsAsync;
-    //    GetPetsUserAsync getNewsAsync;
-//    GetPetsUserAsync.OnFinishListener onFinishListener;
-    GetPetsToAdoptAsync.OnFinishListener onFinishListener;
+//    GetPetsToAdoptAsync getNewsAsync;
+        GetPetsUserAsync getNewsAsync;
+    GetPetsUserAsync.OnFinishListener onFinishListener;
+//    GetPetsToAdoptAsync.OnFinishListener onFinishListener;
     int page = 1;
 
     @Override
@@ -38,7 +39,7 @@ public class PetsAdoptedActivity extends AppCompatActivity {
         activity = this;
         rvNews = findViewById(R.id.rvNews);
         rlProgressBar = findViewById(R.id.rlProgressBar);
-        onFinishListener = new GetPetsToAdoptAsync.OnFinishListener() {
+        onFinishListener = new GetPetsUserAsync.OnFinishListener() {
             @Override
             public void onSuccess(Object var1) {
                 ArrayList<PetsBean> newsBeans = (ArrayList<PetsBean>) var1;
@@ -47,7 +48,8 @@ public class PetsAdoptedActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onError(Object var1) {
+            public void onError(Object var1,Object var2) {
+                GlobalFunctions.handlingOnErrorResponse(activity,(String)var1,(String) var2);
 
             }
         };
@@ -56,7 +58,7 @@ public class PetsAdoptedActivity extends AppCompatActivity {
     }
 
     public void getNews(int page, boolean isRefresh) {
-        getNewsAsync = new GetPetsToAdoptAsync(activity, rlProgressBar, false, onFinishListener);
+        getNewsAsync = new GetPetsUserAsync(activity, rlProgressBar, false, onFinishListener);
         getNewsAsync.execute();
     }
 

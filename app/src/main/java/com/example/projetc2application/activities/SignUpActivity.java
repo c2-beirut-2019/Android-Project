@@ -14,6 +14,7 @@ import com.example.projetc2application.asyncs.SetUsernamePasswordAsync;
 import com.example.projetc2application.asyncs.UserLoginAsync;
 import com.example.projetc2application.asyncs.ValidateCodeAsync;
 import com.example.projetc2application.beans.UserBean;
+import com.example.projetc2application.utils.GlobalFunctions;
 import com.example.projetc2application.utils.GlobalVars;
 import com.example.projetc2application.utils.Prefs;
 
@@ -67,7 +68,8 @@ public class SignUpActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onError(Object var1) {
+            public void onError(Object var1,Object var2) {
+                GlobalFunctions.handlingOnErrorResponse(activity,(String)var1,(String) var2);
 
             }
         };
@@ -80,9 +82,9 @@ public class SignUpActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onError(Object var1) {
+            public void onError(Object var1,Object var2) {
                 rlProgressBar.setVisibility(View.GONE);
-
+                GlobalFunctions.handlingOnErrorResponse(activity,(String)var1,(String) var2);
             }
         };
     }

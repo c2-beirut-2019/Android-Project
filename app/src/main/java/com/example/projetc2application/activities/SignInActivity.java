@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.projetc2application.R;
 import com.example.projetc2application.asyncs.UserLoginAsync;
 import com.example.projetc2application.beans.UserBean;
+import com.example.projetc2application.utils.GlobalFunctions;
 import com.example.projetc2application.utils.Prefs;
 
 public class SignInActivity extends AppCompatActivity {
@@ -62,8 +63,9 @@ public class SignInActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onError(Object var1) {
+            public void onError(Object var1,Object var2) {
                 rlProgressBar.setVisibility(View.GONE);
+                GlobalFunctions.handlingOnErrorResponse(activity,(String)var1,(String) var2);
 
             }
         };

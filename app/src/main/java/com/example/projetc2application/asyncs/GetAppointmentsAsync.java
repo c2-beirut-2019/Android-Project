@@ -9,8 +9,11 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.projetc2application.R;
+import com.example.projetc2application.beans.AppointmentUserBean;
 import com.example.projetc2application.beans.DoctorsBean;
+import com.example.projetc2application.beans.ErrorResponseBean;
 import com.example.projetc2application.beans.HttpResponseBean;
+import com.example.projetc2application.handlers.AppointmentUserHandler;
 import com.example.projetc2application.handlers.DoctorsHandler;
 import com.example.projetc2application.utils.GlobalFunctions;
 import com.example.projetc2application.utils.GlobalVars;
@@ -27,9 +30,10 @@ public class GetAppointmentsAsync extends AsyncTask<Void, Void, String> {
 
     Activity activity;
     OnFinishListener mListener;
-    ArrayList<DoctorsBean> newsBeans;
+    ArrayList<AppointmentUserBean> newsBeans;
     LayoutInflater mLayoutInflater;
     HttpResponseBean bean;
+    ErrorResponseBean errorResponseBean;
     RelativeLayout rlProgressBar;
 //    ProgressBar pgloadmore;
     boolean isRefresh;
@@ -59,8 +63,8 @@ public class GetAppointmentsAsync extends AsyncTask<Void, Void, String> {
             } else {
                 didFail = true;
 //                swipeRefresh.setRefreshing(false);
-                Toast.makeText(activity, activity.getString(R.string.message_error_connection), Toast.LENGTH_SHORT).show();
-                mListener.onError("");
+//                Toast.makeText(activity, activity.getString(R.string.message_error_connection), Toast.LENGTH_SHORT).show();
+                mListener.onError(activity.getString(R.string.message_error_connection),"");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,7 +90,12 @@ public class GetAppointmentsAsync extends AsyncTask<Void, Void, String> {
                     resp = bean.getResponse();
 
                     if (!isCancelled()) {
-                        newsBeans = DoctorsHandler.parseDoctors(resp);
+                        newsBeans = AppointmentUserHandler.parseAppointmentUser(resp);
+                    }
+                }else{
+                    if (!isCancelled()) {
+                        resp = bean.getResponse();
+                        errorResponseBean = ErrorResponseBean.parseError(resp);
                     }
                 }
 
@@ -109,11 +118,11 @@ public class GetAppointmentsAsync extends AsyncTask<Void, Void, String> {
                 if (newsBeans != null) {
                     mListener.onSuccess(newsBeans);
                 } else {
-                    mListener.onError(bean.getStatus()+"");
+                    mListener.onError(bean.getStatus()+"",errorResponseBean.getResponse());
                 }
 
             } else {
-                mListener.onError("An error has occured, try again later");
+                mListener.onError("An error has occured, try again later","");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -136,6 +145,6 @@ public class GetAppointmentsAsync extends AsyncTask<Void, Void, String> {
     public interface OnFinishListener {
         void onSuccess(Object var1);
 
-        void onError(Object var1);
+        void onError(Object var1,Object var2);
     }
 }

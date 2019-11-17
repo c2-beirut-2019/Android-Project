@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.projetc2application.R;
+import com.example.projetc2application.beans.ErrorResponseBean;
 import com.example.projetc2application.beans.HttpResponseBean;
 import com.example.projetc2application.beans.PetsBean;
 import com.example.projetc2application.handlers.PetsHandler;
@@ -30,6 +31,7 @@ public class GetPetsToAdoptAsync extends AsyncTask<Void, Void, String> {
     LayoutInflater mLayoutInflater;
     HttpResponseBean bean;
     RelativeLayout rlProgressBar;
+    ErrorResponseBean errorResponseBean;
 //    ProgressBar pgloadmore;
     boolean isRefresh;
     public boolean isRunning = false;
@@ -58,8 +60,8 @@ public class GetPetsToAdoptAsync extends AsyncTask<Void, Void, String> {
             } else {
                 didFail = true;
 //                swipeRefresh.setRefreshing(false);
-                Toast.makeText(activity, activity.getString(R.string.message_error_connection), Toast.LENGTH_SHORT).show();
-                mListener.onError("");
+//                Toast.makeText(activity, activity.getString(R.string.message_error_connection), Toast.LENGTH_SHORT).show();
+                mListener.onError(activity.getString(R.string.message_error_connection),"");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,6 +85,11 @@ public class GetPetsToAdoptAsync extends AsyncTask<Void, Void, String> {
                     if (!isCancelled()) {
                         petsBeans = PetsHandler.parsePets(resp);
                     }
+                }else{
+                    if (!isCancelled()) {
+                        resp = bean.getResponse();
+                        errorResponseBean = ErrorResponseBean.parseError(resp);
+                    }
                 }
 
 
@@ -104,11 +111,11 @@ public class GetPetsToAdoptAsync extends AsyncTask<Void, Void, String> {
                 if (petsBeans != null) {
                     mListener.onSuccess(petsBeans);
                 } else {
-                    mListener.onError(bean.getStatus()+"");
+                    mListener.onError(bean.getStatus()+"",errorResponseBean.getResponse());
                 }
 
             } else {
-                mListener.onError("An error has occured, try again later");
+                mListener.onError("An error has occured, try again later","");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -131,6 +138,6 @@ public class GetPetsToAdoptAsync extends AsyncTask<Void, Void, String> {
     public interface OnFinishListener {
         void onSuccess(Object var1);
 
-        void onError(Object var1);
+        void onError(Object var1,Object var2);
     }
 }

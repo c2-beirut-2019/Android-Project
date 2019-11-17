@@ -6,18 +6,15 @@ import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.example.projetc2application.R;
+import com.example.projetc2application.beans.AppointmentUserBean;
 import com.example.projetc2application.beans.ErrorResponseBean;
 import com.example.projetc2application.beans.HttpResponseBean;
-import com.example.projetc2application.beans.NewsBean;
-import com.example.projetc2application.handlers.NewsHandler;
+import com.example.projetc2application.handlers.AppointmentUserHandler;
 import com.example.projetc2application.utils.GlobalFunctions;
 import com.example.projetc2application.utils.GlobalVars;
 import com.example.projetc2application.utils.Prefs;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,26 +23,26 @@ import java.util.HashMap;
  * Created by User on 1/22/2018.
  */
 
-public class GetUserAppointmentAsync extends AsyncTask<Void, Void, String> {
+public class GetProfileAsync extends AsyncTask<Void, Void, String> {
 
     Activity activity;
     OnFinishListener mListener;
-    ArrayList<NewsBean> newsBeans;
+    ArrayList<AppointmentUserBean> newsBeans;
     LayoutInflater mLayoutInflater;
     HttpResponseBean bean;
-    RelativeLayout rlProgressBar;
     ErrorResponseBean errorResponseBean;
-    //    ProgressBar pgloadmore;
+    RelativeLayout rlProgressBar;
+//    ProgressBar pgloadmore;
     boolean isRefresh;
     public boolean isRunning = false;
     public boolean isAll = false;
     boolean didFail = false;
 
-    public GetUserAppointmentAsync(Activity activity, RelativeLayout rlProgressBar, boolean isRefresh, OnFinishListener listener) {
+    public GetProfileAsync(Activity activity, RelativeLayout rlProgressBar, boolean isRefresh, OnFinishListener listener) {
         this.activity = activity;
         this.mListener = listener;
         this.isRefresh = isRefresh;
-        this.rlProgressBar = rlProgressBar;
+        this.rlProgressBar=rlProgressBar;
         mLayoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         isRunning = true;
         isAll = false;
@@ -79,19 +76,17 @@ public class GetUserAppointmentAsync extends AsyncTask<Void, Void, String> {
             try {
                 HashMap<String, String> headers = new HashMap<>();
                 headers.put("Authorization", Prefs.getInstance(activity).getAccessToken());
-                if (GlobalVars.IS_USER)
-                    bean = GlobalFunctions.Post_StreamHttp(new JSONObject(), headers, GlobalVars.BASE_URL + GlobalVars.GET_USER_APPOINTMENT_URL, "GET");
-                else
-                    bean = GlobalFunctions.Post_StreamHttp(new JSONObject(), headers, GlobalVars.BASE_URL + GlobalVars.GET_DOCTOR_APPOINTMENT_URL, "GET");
+                if(GlobalVars.IS_USER)
+                bean = GlobalFunctions.Get_StreamHttp(GlobalVars.BASE_URL + GlobalVars.GET_PROFILE_USER_URL, headers, true);
+               else
+                bean = GlobalFunctions.Get_StreamHttp(GlobalVars.BASE_URL + GlobalVars.GET_DOCTOR_USER_URL, headers, true);
 
-                System.out.println("GetUserAppointmentAsync>>>>>>>>>>>>>>>>>>>>>>>" + bean.getResponse());
+                System.out.println("GetProfileAsync>>>>>>>>>>>>>>>>>>>>>>>"+bean.getResponse());
 
                 if (bean.getStatus() >= 200 && bean.getStatus() < 400) {
                     resp = bean.getResponse();
 
-                    if (!isCancelled()) {
-                        newsBeans = NewsHandler.parseNews(resp);
-                    }
+
                 }else{
                     if (!isCancelled()) {
                         resp = bean.getResponse();
@@ -118,7 +113,7 @@ public class GetUserAppointmentAsync extends AsyncTask<Void, Void, String> {
                 if (newsBeans != null) {
                     mListener.onSuccess(newsBeans);
                 } else {
-                    mListener.onError(bean.getStatus() + "",errorResponseBean.getResponse());
+                    mListener.onError(bean.getStatus()+"",errorResponseBean.getResponse());
                 }
 
             } else {
@@ -145,6 +140,6 @@ public class GetUserAppointmentAsync extends AsyncTask<Void, Void, String> {
     public interface OnFinishListener {
         void onSuccess(Object var1);
 
-        void onError(Object var1,Object var2);
+        void onError(Object var1, Object var2);
     }
 }

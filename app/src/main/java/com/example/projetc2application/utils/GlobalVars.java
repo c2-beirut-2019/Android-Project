@@ -14,6 +14,8 @@ public class GlobalVars {
     public static String GET_APPOINTMENT_TYPES_URL = "/appointmentType";
     public static String GET_PETS_USER_URL = "/pet/client";
     public static String GET_DOCTORS_URL = "/doctor/list";
+    public static String GET_PROFILE_USER_URL = "/client/profile";
+    public static String GET_DOCTOR_USER_URL = "/doctor/profile";
     public static String GET_APPOINTMENTS_USER_URL = "/appointment/userAppointment?";
     public static String ADD_APPOINTMENTS_USER_URL = "/appointment";
     public static String GET_APPOINTMENTS_DOCTOR_URL = "/appointment/doctorAppointment?user=5d52f85cb55127289caf493e&appointmentType=5d530577bab06518408f2f1d&pet=5d53066814868b116c591746";
