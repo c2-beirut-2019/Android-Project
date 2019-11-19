@@ -125,5 +125,10 @@ public class MenuTabActivity extends AppCompatActivity implements View.OnClickLi
                 ((AppointmentFragment)fragment).getProducts(1,false);
             }
         }
-    }
+        if(requestCode == 104 && resultCode ==RESULT_OK){
+            if(fragment instanceof ProfileFragment)
+                ((ProfileFragment)fragment).getProfileInfo();
+            }
+        }
+
 }

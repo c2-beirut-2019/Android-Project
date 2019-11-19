@@ -42,7 +42,8 @@ public class GlobalVars {
 
     //Others
     public static final String LOG_TAG = "ProjetC2Log";
-
+    public static final String inputDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+    public static final String outputDateFormatNotifications = "EEEE, d MMM, yyyy";
 
     public static boolean IS_DEBUG;
     public static boolean IS_USER = true;

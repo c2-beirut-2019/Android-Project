@@ -11,6 +11,7 @@ import com.example.projetc2application.R;
 import com.example.projetc2application.beans.AppointmentUserBean;
 import com.example.projetc2application.beans.ErrorResponseBean;
 import com.example.projetc2application.beans.HttpResponseBean;
+import com.example.projetc2application.beans.ProfileBean;
 import com.example.projetc2application.handlers.AppointmentUserHandler;
 import com.example.projetc2application.utils.GlobalFunctions;
 import com.example.projetc2application.utils.GlobalVars;
@@ -27,7 +28,7 @@ public class GetProfileAsync extends AsyncTask<Void, Void, String> {
 
     Activity activity;
     OnFinishListener mListener;
-    ArrayList<AppointmentUserBean> newsBeans;
+    ProfileBean profileBean;
     LayoutInflater mLayoutInflater;
     HttpResponseBean bean;
     ErrorResponseBean errorResponseBean;
@@ -86,7 +87,7 @@ public class GetProfileAsync extends AsyncTask<Void, Void, String> {
                 if (bean.getStatus() >= 200 && bean.getStatus() < 400) {
                     resp = bean.getResponse();
 
-
+                    profileBean = ProfileBean.parseUser(resp);
                 }else{
                     if (!isCancelled()) {
                         resp = bean.getResponse();
@@ -110,8 +111,8 @@ public class GetProfileAsync extends AsyncTask<Void, Void, String> {
             rlProgressBar.setVisibility(View.GONE);
             isRunning = false;
             if (mListener != null) {
-                if (newsBeans != null) {
-                    mListener.onSuccess(newsBeans);
+                if (profileBean != null) {
+                    mListener.onSuccess(profileBean);
                 } else {
                     mListener.onError(bean.getStatus()+"",errorResponseBean.getResponse());
                 }

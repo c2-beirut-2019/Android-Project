@@ -14,12 +14,13 @@ import android.widget.TextView;
 
 import com.example.projetc2application.R;
 import com.example.projetc2application.activities.ProfileActivity;
+import com.example.projetc2application.beans.ProfileBean;
 import com.example.projetc2application.beans.UserBean;
 import com.example.projetc2application.utils.GlobalFunctions;
 
 public class BottomSheetChangeProfileDialogFragment extends BottomSheetDialogFragment implements View.OnClickListener {
 
-    public UserBean profileBean;
+    public ProfileBean profileBean;
     LinearLayout llDeletePicture;
     LinearLayout llViewPicture;
     TextView tvChoosePicture, tvTakePicture;
@@ -29,7 +30,7 @@ public class BottomSheetChangeProfileDialogFragment extends BottomSheetDialogFra
     public BottomSheetChangeProfileDialogFragment() {
     }
 
-    public static BottomSheetChangeProfileDialogFragment newInstance(UserBean profileBean) {
+    public static BottomSheetChangeProfileDialogFragment newInstance(ProfileBean profileBean) {
         BottomSheetChangeProfileDialogFragment frag = new BottomSheetChangeProfileDialogFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("profileBean", profileBean);
@@ -40,7 +41,7 @@ public class BottomSheetChangeProfileDialogFragment extends BottomSheetDialogFra
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        profileBean = (UserBean) getArguments().getSerializable("profileBean");
+        profileBean = (ProfileBean) getArguments().getSerializable("profileBean");
     }
 
     @SuppressLint("RestrictedApi")
@@ -59,10 +60,10 @@ public class BottomSheetChangeProfileDialogFragment extends BottomSheetDialogFra
         tvChoosePicture = contentView.findViewById(R.id.tvChoosePicture);
         tvTakePicture = contentView.findViewById(R.id.tvTakePicture);
 
-        if (!profileBean.getImage().equals("")) {
-            llViewPicture.setVisibility(View.VISIBLE);
-            llDeletePicture.setVisibility(View.VISIBLE);
-        }
+//        if (!profileBean.getImage().equals("")) {
+//            llViewPicture.setVisibility(View.VISIBLE);
+//            llDeletePicture.setVisibility(View.VISIBLE);
+//        }
 
         tvTakePicture.setOnClickListener(this);
         tvChoosePicture.setOnClickListener(this);

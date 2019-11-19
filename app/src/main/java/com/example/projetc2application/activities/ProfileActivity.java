@@ -29,9 +29,12 @@ import android.widget.Toast;
 import com.example.projetc2application.R;
 import com.example.projetc2application.adapters.DoctorsAdapter;
 import com.example.projetc2application.asyncs.GetProfileAsync;
+import com.example.projetc2application.asyncs.UpdateProfileAsync;
+import com.example.projetc2application.beans.ProfileBean;
 import com.example.projetc2application.fragments.BottomSheetChangeProfileDialogFragment;
 import com.example.projetc2application.utils.CircleImageView;
 import com.example.projetc2application.utils.GlobalFunctions;
+import com.example.projetc2application.utils.GlobalVars;
 import com.example.projetc2application.utils.Prefs;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
@@ -43,11 +46,13 @@ import java.util.ArrayList;
 public class ProfileActivity extends AppCompatActivity {
 
     CircleImageView ivProfile;
-    EditText etFirstName,etLastName;
-    RelativeLayout rlProgressBar;
+    EditText etFirstName, etLastName,etPhoneNumber,etRegistrartionDate,etEmergancyPerson,etEmergancyNumber;
+    RelativeLayout rlProgressBar,rlEm1,rlEm2;
     Uri imgUri;
     Activity activity;
     GetProfileAsync getProfileAsync;
+    ProfileBean profileBean;
+    TextView tvAdd;
     boolean isChanged = false;
     boolean isDeleted = false;
     public static final int HANDLE_READ_STORAGE_PERM = 400;
@@ -61,21 +66,58 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         activity = this;
+        rlEm1 = findViewById(R.id.rlEm1);
+        rlEm2 = findViewById(R.id.rlEm2);
         rlProgressBar = findViewById(R.id.rlProgressBar);
+        tvAdd = findViewById(R.id.tvAdd);
         ivProfile = findViewById(R.id.ivCeleb);
         etFirstName = findViewById(R.id.etFirstName);
         etLastName = findViewById(R.id.etLastName);
+        etPhoneNumber = findViewById(R.id.etPhoneNumber);
+        etRegistrartionDate = findViewById(R.id.etRegistrartionDate);
+        etEmergancyPerson = findViewById(R.id.etEmergancyPerson);
+        etEmergancyNumber = findViewById(R.id.etEmergancyNumber);
 
         etFirstName.setText(Prefs.getInstance(activity).getFullName());
         etLastName.setText(Prefs.getInstance(activity).getFullName());
-
+        if (GlobalVars.IS_USER) {
+            rlEm1.setVisibility(View.VISIBLE);
+            rlEm2.setVisibility(View.VISIBLE);
+        }else {
+            rlEm1.setVisibility(View.GONE);
+            rlEm2.setVisibility(View.GONE);
+        }
         getProfileInfo();
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                BottomSheetChangeProfileDialogFragment editListDialog1 =
-//                        BottomSheetChangeProfileDialogFragment.newInstance(profileBean);
-//                editListDialog1.show(((AppCompatActivity) activity).getSupportFragmentManager(), null);
+                BottomSheetChangeProfileDialogFragment editListDialog1 =
+                        BottomSheetChangeProfileDialogFragment.newInstance(profileBean);
+                editListDialog1.show(((AppCompatActivity) activity).getSupportFragmentManager(), null);
+            }
+        });
+
+        tvAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String firstName = etFirstName.getText().toString();
+                String lastName = etLastName.getText().toString();
+                String phonenNumber = profileBean.getPhoneNumber();
+                String name = Prefs.getInstance(activity).getUsername();
+                String emergencyPerson = etEmergancyPerson.getText().toString();
+                String emergencyNumber = etEmergancyNumber.getText().toString();
+                new UpdateProfileAsync(activity, firstName, lastName, phonenNumber, name, emergencyPerson,emergencyNumber,imgUri, rlProgressBar, false, new UpdateProfileAsync.OnFinishListener() {
+                    @Override
+                    public void onSuccess(Object var1) {
+                        activity.setResult(RESULT_OK);
+                        activity.finish();
+                    }
+
+                    @Override
+                    public void onError(Object var1, Object var2) {
+
+                    }
+                }).execute();
             }
         });
     }
@@ -93,11 +135,44 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    public void getProfileInfo(){
+    public void getProfileInfo() {
         getProfileAsync = new GetProfileAsync(activity, rlProgressBar, false, new GetProfileAsync.OnFinishListener() {
             @Override
             public void onSuccess(Object var1) {
+                profileBean = (ProfileBean) var1;
+                etFirstName.setText(profileBean.getFirstName());
+                etLastName.setText(profileBean.getLastName());
+                etPhoneNumber.setText(profileBean.getPhoneNumber());
+                etRegistrartionDate.setText(profileBean.getRegistrationDate());
+                etEmergancyPerson.setText(profileBean.getEmergencyPerson());
+                etEmergancyNumber.setText(profileBean.getEmergencyNumber());
+                com.squareup.picasso.Transformation transformation = new RoundedTransformationBuilder()
+                        .scaleType(ImageView.ScaleType.CENTER_CROP)
+                        .oval(false)
+                        .build();
 
+                try {
+                    Picasso.get()
+                            .load(profileBean.getImage())
+                            .fit()
+                            .placeholder(R.drawable.default_pic)
+                            .centerCrop()
+                            .transform(transformation)
+                            .into(ivProfile, new com.squareup.picasso.Callback() {
+                                @Override
+                                public void onSuccess() {
+
+                                }
+
+                                @Override
+                                public void onError(Exception e) {
+                                    ivProfile.setImageDrawable(activity.getResources().getDrawable(R.drawable.default_pic));
+
+                                }
+                            });
+                } catch (Exception e) {
+                    ivProfile.setImageDrawable(activity.getResources().getDrawable(R.drawable.default_pic));
+                }
             }
 
             @Override
@@ -107,6 +182,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
         getProfileAsync.execute();
     }
+
     public void choosePicture() {
         if (checkReadStoragePermissions(activity)) {
             try {
@@ -178,8 +254,6 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-
-
     public static boolean checkWriteStoragePermissions(Context context) {
         return ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
@@ -206,7 +280,7 @@ public class ProfileActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 } else {
-                    GlobalFunctions.showDialog(activity,"Please allow write external storage");
+                    GlobalFunctions.showDialog(activity, "Please allow write external storage");
                 }
                 break;
             case HANDLE_WRITE_STORAGE_PERM:
@@ -285,7 +359,6 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-    
     public void deleteImage() {
         try {
             isChanged = true;

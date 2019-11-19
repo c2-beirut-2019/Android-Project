@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.projetc2application.R;
 import com.example.projetc2application.adapters.AppointmentTypesAdapter;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class AppointmentTypesActivity extends AppCompatActivity {
 
     Activity activity;
+    TextView tvTitle;
     RelativeLayout rlProgressBar;
     RecyclerView recyclerView;
     AppointmentTypesAdapter appointmentTypesAdapter;
@@ -31,6 +33,8 @@ public class AppointmentTypesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_appointment_types);
 
         activity = this;
+        tvTitle = findViewById(R.id.tvTitle);
+        tvTitle.setText("Appointment Types");
         rlProgressBar = findViewById(R.id.rlProgressBar);
         recyclerView = findViewById(R.id.rvAppointmentTypes);
         onFinishListener = new GetAppointmentTypesAsync.OnFinishListener() {

@@ -128,6 +128,145 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/colorGrey" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="75dp">
+
+                    <TextView
+                        android:id="@+id/tvPhoneNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="19dp"
+                        android:text="Phone Number"
+                        android:textColor="@color/colorGrey"
+                        />
+
+                    <EditText
+                        android:id="@+id/etPhoneNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="19dp"
+                        android:layout_marginRight="19dp"
+                        android:layout_toRightOf="@+id/tvPhoneNumber"
+                        android:background="@android:color/transparent"
+                        android:gravity="right"
+                        android:enabled="false"
+                        android:inputType="number"
+                        android:textColor="@color/colorGrey"
+                        tools:text="Oums" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorGrey" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="75dp">
+
+                    <TextView
+                        android:id="@+id/tvRegistrationDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="19dp"
+                        android:text="Registration Date"
+                        android:textColor="@color/colorGrey"
+                        />
+
+                    <EditText
+                        android:id="@+id/etRegistrartionDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="19dp"
+                        android:layout_marginRight="19dp"
+                        android:layout_toRightOf="@+id/tvRegistrationDate"
+                        android:background="@android:color/transparent"
+                        android:gravity="right"
+                        android:enabled="false"
+                        android:inputType="text"
+                        android:textColor="@color/colorGrey"
+                        tools:text="Oums" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorGrey" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rlEm1"
+                    android:minHeight="75dp">
+
+                    <TextView
+                        android:id="@+id/tvEmergancyPerson"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="19dp"
+                        android:text="Emergancy Person Name"
+                        android:textColor="@color/colorGrey"
+                        />
+
+                    <EditText
+                        android:id="@+id/etEmergancyPerson"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="19dp"
+                        android:layout_marginRight="19dp"
+                        android:layout_toRightOf="@+id/tvEmergancyPerson"
+                        android:background="@android:color/transparent"
+                        android:gravity="right"
+                        android:inputType="text"
+                        android:textColor="@color/colorGrey"
+                        tools:text="Oums" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorGrey" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rlEm2"
+                    android:minHeight="75dp">
+
+                    <TextView
+                        android:id="@+id/tvEmergancyNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="19dp"
+                        android:text="Emergancy Person Number"
+                        android:textColor="@color/colorGrey"
+                        />
+
+                    <EditText
+                        android:id="@+id/etEmergancyNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="19dp"
+                        android:layout_marginRight="19dp"
+                        android:layout_toRightOf="@+id/tvEmergancyNumber"
+                        android:background="@android:color/transparent"
+                        android:gravity="right"
+                        android:inputType="number"
+                        android:textColor="@color/colorGrey"
+                        tools:text="Oums" />
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tvAdd"

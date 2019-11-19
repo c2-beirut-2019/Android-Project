@@ -35,11 +35,15 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class GlobalFunctions {
 
@@ -360,8 +364,8 @@ public class GlobalFunctions {
             //session expiered
             GlobalFunctions.showToast(activity,"Your session is expiered, please login to continue");
             Intent intent =  new Intent(activity, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             activity.startActivity(intent);
-            activity.finish();
         }else{
             GlobalFunctions.showToast(activity,message);
         }
@@ -466,5 +470,22 @@ public class GlobalFunctions {
             activity.startActivity(intent);
         } catch (Exception e) {
         }
+    }
+
+    public static String convertDateToTimeZone(String date, String inputF, String outputF, Locale locale, TimeZone inputTimezone, TimeZone
+            outputTimezone) {
+        DateFormat inputFormat = new SimpleDateFormat(inputF, locale);
+        inputFormat.setTimeZone(inputTimezone);
+
+        DateFormat outputFormat = new SimpleDateFormat(outputF, locale);
+        outputFormat.setTimeZone(outputTimezone);
+
+        Date parsed = new Date();
+        try {
+            parsed = inputFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return outputFormat.format(parsed);
     }
 }

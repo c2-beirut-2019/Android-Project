@@ -50,14 +50,16 @@ public class UpdateProfileAsync extends AsyncTask<Void, Void, String> {
     public boolean isAll = false;
     boolean didFail = false;
     Uri imgUri;
-    String firstName = "", lastName = "",phoneNumber="",name="";
+    String firstName = "", lastName = "",phoneNumber="",name="",emergencyPerson="",emergencyNumber="";
     public static final int MAX_IMAGE_SIZE = 300000;
     public static final int MAX_IMAGE_RESOLUTION = 800;
 
-    public UpdateProfileAsync(Activity activity, String firstName, String lastName, String phoneNumber, String name, Uri imgUri, RelativeLayout rlProgressBar, boolean isRefresh, OnFinishListener listener) {
+    public UpdateProfileAsync(Activity activity, String firstName, String lastName, String phoneNumber, String name,String emergencyPerson,String emergencyNumber,Uri imgUri, RelativeLayout rlProgressBar, boolean isRefresh, OnFinishListener listener) {
         this.activity = activity;
         this.mListener = listener;
         this.isRefresh = isRefresh;
+        this.emergencyPerson = emergencyPerson;
+        this.emergencyNumber = emergencyNumber;
         this.rlProgressBar = rlProgressBar;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -101,17 +103,24 @@ public class UpdateProfileAsync extends AsyncTask<Void, Void, String> {
                 jsonObject.put("firstName",firstName);
                 jsonObject.put("lastName",lastName);
                 jsonObject.put("phoneNumber",phoneNumber);
-                jsonObject.put("name",name);
-                jsonObject.put("extension","png");
-                System.out.println("Imageee>>>>>>>>URII>>>>"+imgUri);
-                DecodedBitmapBean decodedBitmapBean = decodeFileBitmap(activity,imgUri);
-                Bitmap bitmap = decodedBitmapBean.getBitmap();
-                System.out.println("size<>>>>>>>>>>bITMAPP>>>"+bitmap.getByteCount());
-                String encodedData = decodedBitmapBean.getBase64Image();
-                JSONObject imageObject = new JSONObject();
-                imageObject.put("image",encodedData.trim().replaceAll("\n", "").replaceAll("\r", ""));
-
-                jsonObject.put("data","png");
+                if (GlobalVars.IS_USER) {
+                    if(emergencyPerson!=null && !emergencyPerson.isEmpty())
+                    jsonObject.put("emergencyPerson", emergencyPerson);
+                    if(emergencyNumber!=null && !emergencyNumber.isEmpty())
+                        jsonObject.put("emergencyNumber", emergencyNumber);
+                }
+                if(imgUri!=null) {
+                    JSONObject jsonObject1 = new JSONObject();
+                    long time = System.currentTimeMillis();
+                    jsonObject1.put("name", "image_" + time);
+                    jsonObject1.put("extension", "png");
+                    DecodedBitmapBean decodedBitmapBean = decodeFileBitmap(activity, imgUri);
+                    Bitmap bitmap = decodedBitmapBean.getBitmap();
+                    System.out.println("size<>>>>>>>>>>bITMAPP>>>" + bitmap.getByteCount());
+                    String encodedData = decodedBitmapBean.getBase64Image();
+                    jsonObject1.put("data", encodedData.trim().replaceAll("\n", "").replaceAll("\r", ""));
+                    jsonObject.put("profilePic", jsonObject1);
+                }
                 if (GlobalVars.IS_USER)
                     bean = GlobalFunctions.Post_StreamHttp( jsonObject,headers,GlobalVars.BASE_URL + GlobalVars.GET_PROFILE_USER_URL,"POST");
                 else

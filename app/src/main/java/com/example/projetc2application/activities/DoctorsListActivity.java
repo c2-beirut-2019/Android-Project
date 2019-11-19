@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.projetc2application.R;
 import com.example.projetc2application.adapters.DoctorsAdapter;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 
 public class DoctorsListActivity extends AppCompatActivity {
 
+    TextView tvTitle;
     RecyclerView rvNews;
     RelativeLayout rlProgressBar;
     Activity activity;
@@ -34,6 +36,8 @@ public class DoctorsListActivity extends AppCompatActivity {
 
     public void setupView() {
         activity = this;
+        tvTitle = findViewById(R.id.tvTitle);
+        tvTitle.setText("Doctors");
         rvNews = findViewById(R.id.rvProducts);
 
         rlProgressBar = findViewById(R.id.rlProgressBar);

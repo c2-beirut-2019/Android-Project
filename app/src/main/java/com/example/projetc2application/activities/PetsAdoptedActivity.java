@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.projetc2application.R;
 import com.example.projetc2application.adapters.PetsAdapter;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 
 public class PetsAdoptedActivity extends AppCompatActivity {
 
+    TextView tvTitle;
     RecyclerView rvNews;
     RelativeLayout rlProgressBar;
     Activity activity;
@@ -37,6 +39,8 @@ public class PetsAdoptedActivity extends AppCompatActivity {
 
     public void setupView() {
         activity = this;
+        tvTitle = findViewById(R.id.tvTitle);
+        tvTitle.setText("Your Pets Adopted");
         rvNews = findViewById(R.id.rvNews);
         rlProgressBar = findViewById(R.id.rlProgressBar);
         onFinishListener = new GetPetsUserAsync.OnFinishListener() {
