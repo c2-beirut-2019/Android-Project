@@ -70,7 +70,7 @@ public class UserLoginAsync extends AsyncTask<Void, Void, String> {
                 didFail = true;
 //                swipeRefresh.setRefreshing(false);
                 Toast.makeText(activity, activity.getString(R.string.message_error_connection), Toast.LENGTH_SHORT).show();
-                mListener.onError(activity.getString(R.string.message_error_connection),"");
+                mListener.onError(activity.getString(R.string.message_error_connection),activity.getString(R.string.message_error_connection));
             }
         } catch (Exception e) {
             e.printStackTrace();

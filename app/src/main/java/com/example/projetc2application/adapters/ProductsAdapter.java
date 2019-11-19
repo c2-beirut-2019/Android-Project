@@ -14,12 +14,15 @@ import android.widget.TextView;
 import com.example.projetc2application.R;
 import com.example.projetc2application.activities.ProductsDetailsActivity;
 import com.example.projetc2application.beans.ProductsBean;
+import com.example.projetc2application.utils.GlobalFunctions;
 import com.example.projetc2application.utils.GlobalVars;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class ProductsAdapter extends RecyclerView.Adapter {
 
@@ -88,7 +91,9 @@ public class ProductsAdapter extends RecyclerView.Adapter {
             }
 
             ((ProductsViewHolder) viewHolder1).titlestory.setText(newsBeans.get(position).getTitle());
-            ((ProductsViewHolder) viewHolder1).tvTime.setText(newsBeans.get(position).getCreateDate());
+            ((ProductsViewHolder) viewHolder1).tvTime.setText(GlobalFunctions.convertDateToTimeZone(newsBeans.get(position).getCreateDate(), GlobalVars.inputDateFormat,
+                    GlobalVars.outputDateFormatNotifications
+                    , Locale.ENGLISH, TimeZone.getTimeZone("UTC"), TimeZone.getDefault()));
 
             ((ProductsViewHolder) viewHolder).rlParent.setTag(position);
             ((ProductsViewHolder) viewHolder).rlParent.setOnClickListener(new View.OnClickListener() {

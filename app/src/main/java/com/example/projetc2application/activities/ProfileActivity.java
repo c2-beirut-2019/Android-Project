@@ -52,7 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
     Activity activity;
     GetProfileAsync getProfileAsync;
     ProfileBean profileBean;
-    TextView tvAdd;
+    TextView tvAdd,tvChangeProfile;
     boolean isChanged = false;
     boolean isDeleted = false;
     public static final int HANDLE_READ_STORAGE_PERM = 400;
@@ -66,6 +66,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         activity = this;
+        tvChangeProfile = findViewById(R.id.tvChangeProfile);
         rlEm1 = findViewById(R.id.rlEm1);
         rlEm2 = findViewById(R.id.rlEm2);
         rlProgressBar = findViewById(R.id.rlProgressBar);
@@ -89,6 +90,14 @@ public class ProfileActivity extends AppCompatActivity {
         }
         getProfileInfo();
         ivProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetChangeProfileDialogFragment editListDialog1 =
+                        BottomSheetChangeProfileDialogFragment.newInstance(profileBean);
+                editListDialog1.show(((AppCompatActivity) activity).getSupportFragmentManager(), null);
+            }
+        });
+        tvChangeProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BottomSheetChangeProfileDialogFragment editListDialog1 =

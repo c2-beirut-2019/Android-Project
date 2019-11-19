@@ -37,6 +37,9 @@ public class PetsHandler {
                         if (jsonObject.has("name")) {
                             name = jsonObject.getString("name");
                         }
+                        if (jsonObject.has("image")) {
+                            image = jsonObject.getString("image");
+                        }
                         if (jsonObject.has("color")) {
                             color = jsonObject.getString("color");
                         }
@@ -105,6 +108,9 @@ public class PetsHandler {
                         }
                         if (jsonObject.has("name")) {
                             name = jsonObject.getString("name");
+                        }
+                        if (jsonObject.has("image")) {
+                            image = jsonObject.getString("image");
                         }
                         if (jsonObject.has("color")) {
                             color = jsonObject.getString("color");

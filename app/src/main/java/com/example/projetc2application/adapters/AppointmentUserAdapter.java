@@ -15,12 +15,15 @@ import com.example.projetc2application.R;
 import com.example.projetc2application.activities.DoctorsListActivity;
 import com.example.projetc2application.beans.AppointmentUserBean;
 import com.example.projetc2application.beans.DoctorsBean;
+import com.example.projetc2application.utils.GlobalFunctions;
 import com.example.projetc2application.utils.GlobalVars;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class AppointmentUserAdapter extends RecyclerView.Adapter {
 
@@ -88,7 +91,10 @@ public class AppointmentUserAdapter extends RecyclerView.Adapter {
                 ((NewsViewHolder) viewHolder1).storyimage.setImageDrawable(activity.getResources().getDrawable(R.drawable.default_pic));
             }
 
-            ((NewsViewHolder) viewHolder1).titlestory.setText("Doctor Speciality : "+newsBeans.get(position).getDoctor_speciality()+"\nFull Name : "+newsBeans.get(position).getDoctor_firstName()+" "+newsBeans.get(position).getDoctor_lastName()+"\nPetName : "+newsBeans.get(position).getPet_name()+"\nStart Date : "+newsBeans.get(position).getStartDate());
+            ((NewsViewHolder) viewHolder1).titlestory.setText("Doctor Speciality : "+newsBeans.get(position).getDoctor_speciality()+"\nFull Name : "+newsBeans.get(position).getDoctor_firstName()+" "+newsBeans.get(position).getDoctor_lastName()+"\nPetName : "+newsBeans.get(position).getPet_name()+"\nStart Date : "
+                    + GlobalFunctions.convertDateToTimeZone(newsBeans.get(position).getStartDate(), GlobalVars.inputDateFormat,
+                    GlobalVars.outputDateFormatNotifications
+                    , Locale.ENGLISH, TimeZone.getTimeZone("UTC"), TimeZone.getDefault()));
 //            ((NewsViewHolder) viewHolder1).tvTime.setText(newsBeans.get(position).getDateOfBirth());
 
             ((NewsViewHolder) viewHolder).rlParent.setTag(position);
